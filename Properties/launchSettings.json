@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "CustomVisionCLI": {
+      "commandName": "Project",
+      "commandLineArgs": "-m Assets\\model.pb -l Assets\\labels.txt -t \"Assets\\test.jpg\""
+    },
+    "CustomVision-TensorFlow-CSharp": {
+      "commandName": "Executable"
+    }
+  }
+}
