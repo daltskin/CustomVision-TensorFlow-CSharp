@@ -1,11 +1,11 @@
-# Custom Vision TensorFlow CLI - Offline image classification using C#
-Cross platform CLI to run a pre-trained model exported from CustomVision.ai in the Tensorflow format for image classification using the [TensorFlowSharp library](https://github.com/migueldeicaza/TensorFlowSharp).
+# CustomVision.ai TensorFlow CLI - Offline image classification using C#
+Cross platform CLI to run a pre-trained model exported from [CustomVision.ai](https://CustomVision.ai) in the Tensorflow format for image classification using the [TensorFlowSharp library](https://github.com/migueldeicaza/TensorFlowSharp).
 
 To learn more about Microsoft Cognitive Custom Vision Service, please see here: https://azure.microsoft.com/en-gb/services/cognitive-services/custom-vision-service/
 
 
 ## Mean Values (RGB)
-Depending on the CustomVision.ai Domain, you'll need to set the appropriate values within the code:
+Depending on the [CustomVision.ai](https://CustomVision.ai) model's Domain, you'll need to set the appropriate values within the code:
 
 | Project's Domain | Mean Values (RGB) |
 |----|----|
