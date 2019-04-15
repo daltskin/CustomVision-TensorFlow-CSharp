@@ -32,16 +32,10 @@
 
         public void Main()
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
             var graph = new TFGraph();
             var model = File.ReadAllBytes(TensorFlowModelFilePath);
             var labels = File.ReadAllLines(TensorFlowLabelsFilePath);
             graph.Import(model);
-
-            var bestIdx = 0;
-            float best = 0;
 
             using (var session = new TFSession(graph))
             {
@@ -54,18 +48,11 @@
                 var probabilities = ((float[][])result.GetValue(jagged: true))[0];
                 for (int i = 0; i < probabilities.Length; i++)
                 {
-                    if (probabilities[i] > best)
-                    {
-                        bestIdx = i;
-                        best = probabilities[i];
-                    }
+                    double score = Math.Round(probabilities[i] * 100.0);
+                    Console.WriteLine($"{TestImageFilePath} = {labels[i]} ({score}%)");
                 }
             }
-
             // fin
-            stopwatch.Stop();
-            Console.WriteLine($"{TestImageFilePath} = {labels[bestIdx]} ({best * 100.0}%)");
-            Console.WriteLine($"Total time: {stopwatch.Elapsed}");
             Console.ReadKey();
         }
     }

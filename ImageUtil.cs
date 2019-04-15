@@ -35,25 +35,19 @@
         // Java: https://github.com/Azure-Samples/cognitive-services-android-customvision-sample/blob/master/app/src/main/java/demo/tensorflow/org/customvision_sample/MSCognitiveServicesClassifier.java
         private static TFGraph ConstructGraphToNormalizeImage (out TFOutput input, out TFOutput output, TFDataType destinationDataType = TFDataType.Float)
 		{
-			const int W = 227;
-			const int H = 227;
+            const int W = 224;
+            const int H = 224;
             const float Scale = 1;
 
-            // Depending on your CustomVision.ai Domain - set appropriate Mean Values (RGB)
-            // https://github.com/Azure-Samples/cognitive-services-android-customvision-sample for RGB values (in BGR order)
-            var bgrValues = new TFTensor(new float[] { 104.0f, 117.0f, 123.0f }); // General (Compact) & Landmark (Compact)
-            //var bgrValues = new TFTensor(0f); // Retail (Compact)
-
-            var graph = new TFGraph ();
-            input = graph.Placeholder (TFDataType.String);
+            var graph = new TFGraph();
+            input = graph.Placeholder(TFDataType.String);
 
             var caster = graph.Cast(graph.DecodeJpeg(contents: input, channels: 3), DstT: TFDataType.Float);
             var dims_expander = graph.ExpandDims(caster, graph.Const(0, "batch"));
             var resized = graph.ResizeBilinear(dims_expander, graph.Const(new int[] { H, W }, "size"));
-            var resized_mean = graph.Sub(resized, graph.Const(bgrValues, "mean"));
-            var normalised = graph.Div(resized_mean, graph.Const(Scale));
+            var normalised = graph.Div(resized, graph.Const(Scale));
             output = normalised;
             return graph;
-		}
-	}
+        }
+    }
 }
